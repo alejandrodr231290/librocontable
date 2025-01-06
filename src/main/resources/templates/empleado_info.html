@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaft.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Spring Boot</title>
+</head>
+<body>
+    <body>
+        <h1>Informacion de Empleado</h1>
+        <ul>
+            <li> <strong>Nombre:</strong> <span th:text="${empleado.nombre}"></span> </li>
+            <li> <strong>Apellido:</strong> <span th:text="${empleado.apellido}"></span> </li>
+            <li> <strong>Direccion:</strong> <span th:text="${empleado.direccion}"></span> </li>
+            <li> <strong>Puesto:</strong> <span th:text="${empleado.puesto}"></span> </li>
+            <li> <strong>Edad:</strong> <span th:text="${empleado.edad}"></span> </li>
+            <li> <strong>Telefono:</strong> <span th:text="${empleado.telefono}"></span> </li>
+            <li> <strong>Id:</strong> <span th:text="${empleado.id}"></span> </li>
+        </ul>
+    
+    </body>
+</body>
+</html>

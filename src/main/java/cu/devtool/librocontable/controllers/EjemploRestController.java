@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cu.devtool.librocontable.models.Empleado;
-import cu.devtool.librocontable.models.dto.ClaseDTO;
 import cu.devtool.librocontable.models.dto.ClaseDto;
 
 import org.springframework.web.bind.annotation.RequestMapping;

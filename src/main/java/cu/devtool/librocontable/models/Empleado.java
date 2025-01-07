@@ -3,6 +3,7 @@ package cu.devtool.librocontable.models;
 public class Empleado {
     private String nombre, apellido, direccion, puesto;
     private int edad, telefono, id;
+    private String direccion2;
 
     public Empleado(String nombre, String apellido, String direccion, String puesto, int edad, int telefono, int id) {
         this.nombre = nombre;
@@ -68,6 +69,14 @@ public class Empleado {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDireccion2() {
+        return direccion2;
+    }
+
+    public void setDireccion2(String direccion2) {
+        this.direccion2 = direccion2;
     }
 
 }

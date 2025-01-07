@@ -5,19 +5,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import cu.devtool.librocontable.models.Empleado;
+import cu.devtool.librocontable.models.Producto;
 import cu.devtool.librocontable.models.dto.ClaseDto;
+import cu.devtool.librocontable.models.dto.ParametroDto;
+import cu.devtool.librocontable.service.Producto_Service;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController // metodo solicitudes de tipo rest
 @RequestMapping("/api")
 public class EjemploRestController {
-
+    
     @GetMapping("/test")
     public Map<String, Object> test() {
         Map<String, Object> respuesta = new HashMap<>();
@@ -54,9 +62,77 @@ public class EjemploRestController {
         return respuesta;
     }
 
-    @GetMapping(path = "/empleado")
+    // DTO
+    @GetMapping("/empleado")
     public ClaseDto empleado() {
         ClaseDto usuario = new ClaseDto("Administrator", "alejandrodr");
         return usuario;
     }
+
+    // RequestParam
+    @GetMapping("/parametro") // leer parametro, required = false para q no sea obligado
+    public ParametroDto parametro(@RequestParam(required = false, defaultValue = "Sin parametros") String informacion) {
+        ParametroDto info = new ParametroDto(informacion);
+        return info;
+    }
+
+    // video 15
+    // PathVariable
+    // capturar partes especificas del path de una solicitud (parametro por ruta)
+    @GetMapping("/mensaje/{mensaje}")
+    public ParametroDto partes(@PathVariable String mensaje) {
+        ParametroDto info = new ParametroDto(mensaje);
+        return info;
+    }
+
+    // video 16
+    @PostMapping("/solicitud")
+    public Empleado creaEmpleado(@RequestBody Empleado empleado) {
+        return empleado;
+        /*
+         * post parametros
+         * {
+         * "nombre":"Ale",
+         * "apellido":"Duenas",
+         * "direccion":"direccion",
+         * "direccion2":"direccion2",
+         * "puesto":"puesto",
+         * "edad":30,
+         * "telefono":54862288,
+         * "id":1
+         * }
+         */
+    }
+
+    // video 17
+    //config en application.propeties
+    @Value("${config.codigo}")  
+    private int codigo;
+    @Value("${config.usuario}")
+    private String usuario;
+    @Value("${config.valores}")
+    private String[] valores;
+
+    @GetMapping("/valores")
+    public Map<String, Object> valores() {
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("usuario", usuario);
+        respuesta.put("codigo", codigo);
+        respuesta.put("valores", valores);
+        return respuesta;
+    }
+    //video23  
+    @GetMapping("/producto/{idProducto}")
+    public Producto productos(@PathVariable int idProducto) {
+        //instancia unica por cada cliente
+        Producto_Service servicio=new Producto_Service();
+
+        return servicio.findId(idProducto);
+    }   
+    @GetMapping("/productos")
+    public List<Producto> productos() {
+        Producto_Service servicio=new Producto_Service();
+        return servicio.findAll();
+    }
+
 }

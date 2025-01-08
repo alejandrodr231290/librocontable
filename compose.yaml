@@ -1,0 +1,11 @@
+services:
+  mysql:
+    container_name: 'librocontable-mysql'
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=librocontable'
+      - 'MYSQL_PASSWORD=librocontable'
+      - 'MYSQL_ROOT_PASSWORD=librocontable'
+      - 'MYSQL_USER=librocontable'
+    ports:
+      - '3306:3306'

@@ -1,15 +1,15 @@
 package cu.devtool.librocontable.models;
 
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,33 +17,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "producto")
+@Table(name = "recepcion")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Producto {
+public class Recepcion {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String codigo;
-    private String nombre;
-    private String descripcion;
-    private Double precio_compra;
-    private Double precio_venta;
-
+    private Date fecha;
+   
     @ManyToOne
     @JoinColumn(name = "entidad_id")
     private Entidad entidad;
-   
-    @ManyToMany(mappedBy = "productos")
-    private List<Establecimiento> establecimientos;
+
+    @OneToMany(mappedBy = "recepcion")
+    private List<RecepcionProducto> productos;
 
     @OneToOne
-    @JoinColumn(name = "unidad_medida_id")
-    private UnidadMedida unidadMedida;
-
-    @OneToOne
-    @JoinColumn(name = "categoria_id", nullable=true)
-    private Categoria categoria;
+    @JoinColumn(name = "cliente_id")
+    private Proveedor preveedor;
 
 }
